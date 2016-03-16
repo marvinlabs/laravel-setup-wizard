@@ -70,6 +70,11 @@ class DefaultSetupWizard implements SetupWizard
         throw new StepNotFoundException();
     }
 
+    public function progress()
+    {
+        return 100 * $this->currentStepIndex / count($this->steps());
+    }
+
     public function currentStep()
     {
         return $this->currentStep;
@@ -132,7 +137,7 @@ class DefaultSetupWizard implements SetupWizard
         /** @var array $steps */
         $steps = $this->steps();
 
-        if ($index <= 0 || $index >= count($steps)) throw new StepNotFoundException();
+        if ($index < 0 || $index >= count($steps)) throw new StepNotFoundException();
 
         /** @var WizardStep $step */
         $i = 0;

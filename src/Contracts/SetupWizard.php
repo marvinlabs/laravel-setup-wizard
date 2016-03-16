@@ -6,6 +6,7 @@
  * Time: 10:13
  */
 namespace MarvinLabs\SetupWizard\Contracts;
+
 use MarvinLabs\SetupWizard\Exceptions\StepNotFoundException;
 
 
@@ -19,19 +20,19 @@ interface SetupWizard
      *
      * @param $currentStepSlug
      */
-    public function initialize($currentStepSlug);
+    function initialize($currentStepSlug);
 
     /**
      * Get the steps which
      *
      * @return array The step objects
      */
-    public function steps();
+    function steps();
 
     /**
      * @return WizardStep The first step of the wizard
      */
-    public function firstStep();
+    function firstStep();
 
     /**
      *
@@ -40,22 +41,27 @@ interface SetupWizard
      * @return int The step order number (0 is the first step)
      * @throws StepNotFoundException If no step with that ID is found
      */
-    public function stepIndex($stepId);
+    function stepIndex($stepId);
 
     /**
      * @return WizardStep The current step
      */
-    public function currentStep();
+    function currentStep();
 
     /**
      * @return WizardStep The previous step
      */
-    public function previousStep();
+    function previousStep();
 
     /**
      * @return WizardStep The next step
      */
-    public function nextStep();
+    function nextStep();
+
+    /**
+     * @return int Percentage of progress for the wizard, given the current step
+     */
+    function progress();
 
     /**
      * Check if the step ID corresponds to the current step
@@ -64,7 +70,7 @@ interface SetupWizard
      *
      * @return bool true if the step is the current one
      */
-    public function isCurrent($stepId);
+    function isCurrent($stepId);
 
     /**
      * If the step the first one of the wizard
@@ -74,7 +80,7 @@ interface SetupWizard
      * @return bool true if the step is the first
      * @throws StepNotFoundException If no step with that ID is found
      */
-    public function isFirst($stepId = null);
+    function isFirst($stepId = null);
 
     /**
      * If the step the first one of the wizard
@@ -84,5 +90,5 @@ interface SetupWizard
      * @return bool true if the step is the last
      * @throws StepNotFoundException If no step with that ID is found
      */
-    public function isLast($stepId = null);
+    function isLast($stepId = null);
 }

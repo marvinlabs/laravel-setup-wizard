@@ -4,11 +4,14 @@ namespace MarvinLabs\SetupWizard\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controller;
 use MarvinLabs\SetupWizard\Exceptions\StepNotFoundException;
 use MarvinLabs\SetupWizard\Facades\SetupWizard;
 
-class WizardController extends BaseWizardController
+class WizardController extends Controller
 {
+    /** @var SetupWizard */
+    protected $wizard;
 
     /**
      * WizardController constructor.
@@ -17,7 +20,7 @@ class WizardController extends BaseWizardController
      */
     public function __construct(SetupWizard $wizard)
     {
-        parent::__construct($wizard);
+        $this->wizard = $wizard;
 
         // Our methods all use the middleware to setup the wizard (find current step, etc.)
         $this->middleware('setup_wizard.initializer');
@@ -34,13 +37,33 @@ class WizardController extends BaseWizardController
     }
 
     /**
+     * Submit the wizard step currently shown with the specified action (next/back)
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function submitStep(Request $request)
+    {
+        if ($request->has('wizard-action-next')) {
+            return $this->nextStep($request);
+        }
+
+        if ($request->has('wizard-action-back')) {
+            return $this->previousStep($request);
+        }
+
+        throw new \RuntimeException('Unknown wizard action');
+    }
+
+    /**
      * Apply current step and move on to next step
      *
      * @param Request $request
      *
      * @return Response
      */
-    public function nextStep(Request $request)
+    protected function nextStep(Request $request)
     {
         // Apply the current step. If success, we can redirect to next one
         $currentStep = \SetupWizard::currentStep();
@@ -52,7 +75,7 @@ class WizardController extends BaseWizardController
         try {
             $nextStep = \SetupWizard::nextStep();
 
-            return redirect()->route('setup_wizard.showStep', ['slug' => $nextStep->getSlug()]);
+            return redirect()->route('setup_wizard.show', ['slug' => $nextStep->getSlug()]);
         } catch (StepNotFoundException $e) {
             $finalRouteName = config('setup_wizard.routing.success_route', '');
             if (!empty($finalRouteName)) return redirect()->route($finalRouteName);
@@ -64,11 +87,18 @@ class WizardController extends BaseWizardController
         }
     }
 
-    public function previousStep(Request $request)
+    protected function previousStep(Request $request)
     {
-        $currentStep = \SetupWizard::currentStep();
+        try {
+            // Undo the previous step. If success, we can redirect to its form
+            $previousStep = \SetupWizard::previousStep();
+            if (!$previousStep->undo()) {
+                return redirect()->back()->withErrors($previousStep);
+            }
 
-        // Undo the previous step. If success, we can redirect to its form
-
+            return redirect()->route('setup_wizard.show', ['slug' => $previousStep->getSlug()]);
+        } catch (StepNotFoundException $e) {
+            return redirect()->route('setup_wizard.show');
+        }
     }
 }

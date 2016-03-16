@@ -14,7 +14,10 @@
 <div class="sw-wizard container">
     <div class="row">
         <div class="col-sm-12">
-            {!! Form::open([ ]) !!}
+            {!! Form::open([
+                'route' => ['setup_wizard.submit', \SetupWizard::currentStep()->getSlug()]  ,
+                'files' => true,
+            ]) !!}
 
             @section('wizard.breadcrumb')
                 @include('setup_wizard::partials.breadcrumb')

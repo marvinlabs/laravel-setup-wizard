@@ -2,18 +2,17 @@
 
 namespace MarvinLabs\SetupWizard\Steps;
 
-class EnvFileStep extends BaseStep {
+class EnvFileStep extends BaseStep
+{
 
     /**
      * BaseStep constructor.
      *
      * @param string $id The unique identifier for the step
-     * @param int    $stepIndex The index of this step in the wizard
-     * @param int    $wizardStepCount The number of steps in the wizard
      */
-    public function __construct($id, $stepIndex, $wizardStepCount)
+    public function __construct($id)
     {
-        parent::__construct($id, $stepIndex, $wizardStepCount);
+        parent::__construct($id);
     }
 
     public function getFormData()
@@ -21,19 +20,50 @@ class EnvFileStep extends BaseStep {
         $sampleContent = $this->readSampleEnvFile();
 
         return [
-            'sampleContent' => $sampleContent
+            'sampleContent' => $sampleContent,
         ];
     }
 
-    public function apply($request)
+    public function apply($formData)
     {
-        $envFilePath = dirname(app_path()) . '/.env';
-        $fileContent  = $request->input('file_content');
-        file_put_contents($envFilePath, $fileContent);
+        // Validate form data
+        $v = $this->getValidator($formData);
+        if ($v->fails()) {
+            $this->errors->merge($v->errors());
+
+            return false;
+        }
+
+        // Proceed with file creation
+        $envFilePath = base_path('.env');
+        if (false === file_put_contents($envFilePath, $formData['file_content'])) {
+            $this->errors->add('env.errors.cannot_write_file', trans('setup_wizard::steps.env.errors.cannot_write_file'));
+
+            return false;
+        }
+
+        // Delete any old backup if any
+        $backupFile = base_path('.env.backup');
+        if (file_exists($backupFile)) {
+            unlink($backupFile);
+        }
+
+        return true;
     }
 
-    public function undo($request)
+    public function undo()
     {
+        $envFile = base_path('.env');
+        if (file_exists($envFile)) {
+            $backupFile = base_path('.env.backup');
+            if (false===rename($envFile, $backupFile)) {
+                $this->errors->add('env.errors.cannot_backup_file', trans('setup_wizard::steps.env.errors.cannot_backup_file'));
+
+                return true;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -41,14 +71,28 @@ class EnvFileStep extends BaseStep {
      */
     protected function readSampleEnvFile()
     {
-        $sampleContent = '';
-        $sampleFile = dirname(app_path()) . '/.env.example';
-        if (file_exists($sampleFile)) {
-            $sampleContent = file_get_contents($sampleFile);
+        $files = ['.env', '.env.backup', '.env.example'];
+        foreach ($files as $f) {
+            $f = base_path($f);
+            if (file_exists($f)) {
+                $sampleContent = file_get_contents($f);
 
-            return $sampleContent;
+                return $sampleContent;
+            }
         }
 
-        return $sampleContent;
+        return '';
+    }
+
+    /**
+     * @param $formData
+     *
+     * @return \Illuminate\Validation\Validator
+     */
+    protected function getValidator($formData)
+    {
+        return \Validator::make($formData, [
+            'file_content' => 'required',
+        ]);
     }
 }
