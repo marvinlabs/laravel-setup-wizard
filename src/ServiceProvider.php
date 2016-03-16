@@ -1,10 +1,10 @@
 <?php
 
-namespace MarvinLabs\SetupWizard\Providers;
+namespace MarvinLabs\SetupWizard;
 
-use Illuminate\Support\ServiceProvider;
+use MarvinLabs\SetupWizard\Wizard\DefaultSetupWizard;
 
-class SetupWizardServiceProvider extends ServiceProvider
+class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 
     public static $RES_NAMESPACE = 'setup_wizard';
@@ -21,7 +21,7 @@ class SetupWizardServiceProvider extends ServiceProvider
     public function __construct($app)
     {
         parent::__construct($app);
-        $this->packageDir = dirname(dirname(__DIR__));
+        $this->packageDir = dirname(__DIR__);
     }
 
     /**
@@ -54,27 +54,35 @@ class SetupWizardServiceProvider extends ServiceProvider
             require($this->packageDir . '/src/routes.php');
         }
 
-        // We have some views for the wizard
-        $this->loadViewsFrom($this->packageDir . '/views', self::$RES_NAMESPACE);
+        // Facade
+        $this->app->singleton('SetupWizard', function ($app) {
+            $wizard = new DefaultSetupWizard($app);
 
-        // And translations too
-        $this->loadTranslationsFrom($this->packageDir . '/lang', self::$RES_NAMESPACE);
+            return $wizard;
+        }
+        );
 
-        // We can publish some files if the user wants to override them
-        $this->publishes([
-            $this->packageDir . '/views' => resource_path('views/vendor/' . self::$RES_NAMESPACE),
-        ], 'views');
+        $this->app->alias('SetupWizard', DefaultSetupWizard::class);
 
-        $this->publishes([
-            $this->packageDir . '/lang' => resource_path('lang/vendor/' . self::$RES_NAMESPACE),
-        ], 'translations');
+        // We have some views and translations for the wizard
+        $this->loadViewsFrom($this->packageDir . '/resources/views', self::$RES_NAMESPACE);
+        $this->loadTranslationsFrom($this->packageDir . '/resources/lang', self::$RES_NAMESPACE);
 
+        // We publish some files to override if required
         $this->publishes([
             $this->packageDir . '/config/' . self::$CONFIG_FILE => config_path(self::$CONFIG_FILE),
         ], 'config');
 
         $this->publishes([
-            $this->packageDir . '/assets' => public_path('vendor/' . self::$RES_NAMESPACE),
+            $this->packageDir . '/resources/views' => resource_path('views/vendor/' . self::$RES_NAMESPACE),
+        ], 'views');
+
+        $this->publishes([
+            $this->packageDir . '/resources/lang' => resource_path('lang/vendor/' . self::$RES_NAMESPACE),
+        ], 'translations');
+
+        $this->publishes([
+            $this->packageDir . '/resources/assets' => public_path('vendor/' . self::$RES_NAMESPACE),
         ], 'assets');
     }
 

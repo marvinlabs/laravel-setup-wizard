@@ -1,0 +1,1 @@
+{{ Form::textarea('file_content', $sampleContent, []) }}
