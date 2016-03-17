@@ -18,6 +18,15 @@ class EnvFileStep extends BaseStep
     public function getFormData()
     {
         $sampleContent = $this->readSampleEnvFile();
+
+        // By default we set debug to false and we generate an application key
+        \Artisan::call('key:generate', ['--show' => true]);
+        $key = str_replace('"', '', \Artisan::output());
+        $key = str_replace("\n", '', $key);
+
+        $sampleContent = str_replace('APP_KEY=SomeRandomString', 'APP_KEY=' . $key, $sampleContent);
+        $sampleContent = str_replace('APP_DEBUG=true', 'APP_DEBUG=false', $sampleContent);
+
         return [
             'sampleContent' => $sampleContent,
         ];
@@ -55,7 +64,7 @@ class EnvFileStep extends BaseStep
         $envFile = base_path('.env');
         if (file_exists($envFile)) {
             $backupFile = base_path('.env.backup');
-            if (false===rename($envFile, $backupFile)) {
+            if (false === rename($envFile, $backupFile)) {
                 $this->errors->add('env.errors.cannot_backup_file', trans('setup_wizard::steps.env.errors.cannot_backup_file'));
 
                 return true;
