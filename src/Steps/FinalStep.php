@@ -9,7 +9,7 @@ class FinalStep extends BaseStep
         parent::__construct($id);
     }
 
-    function apply($formData)
+    public function apply($formData)
     {
         // Create a file which means the wizard is completed
         $filePath = storage_path('.setup_wizard');
@@ -27,7 +27,7 @@ class FinalStep extends BaseStep
         return true;
     }
 
-    function undo()
+    public function undo()
     {
         return true;
     }

@@ -51,9 +51,10 @@ return [
     */
 
     'steps' => [
-        'env'      => \MarvinLabs\SetupWizard\Steps\EnvFileStep::class,
-        'database' => \MarvinLabs\SetupWizard\Steps\DatabaseStep::class,
-        'final'    => \MarvinLabs\SetupWizard\Steps\FinalStep::class,
+        'requirements' => \MarvinLabs\SetupWizard\Steps\RequirementsStep::class,
+        'env'          => \MarvinLabs\SetupWizard\Steps\EnvFileStep::class,
+        'database'     => \MarvinLabs\SetupWizard\Steps\DatabaseStep::class,
+        'final'        => \MarvinLabs\SetupWizard\Steps\FinalStep::class,
     ],
 
     /*
@@ -65,7 +66,7 @@ return [
     | appearance
     */
 
-    'theme' => 'material',
+    'theme'              => 'material',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,11 +78,14 @@ return [
     | by looping through the array and run "extension_loaded" on it.
     |
     */
-    'requirements' => [
-        'openssl',
-        'pdo',
-        'mbstring',
-        'tokenizer'
+    'requirements'       => [
+        'php_version'    => '5.5.9',
+        'php_extensions' => [
+            'mbstring',
+            'openssl',
+            'pdo',
+            'tokenizer',
+        ],
     ],
 
     /*
@@ -90,13 +94,13 @@ return [
     |--------------------------------------------------------------------------
     |
     | This is the default Laravel folders permissions, if your application
-    | requires more permissions just add them to the array list bellow.
+    | requires more permissions just add them to the array list below.
     |
     */
-    'permissions' => [
-        'storage/app/'           => '775',
-        'storage/framework/'     => '775',
-        'storage/logs/'          => '775',
-        'bootstrap/cache/'       => '775'
-    ]
+    'folder_permissions' => [
+        'bootstrap/cache/'   => '775',
+        'storage/app/'       => '775',
+        'storage/framework/' => '775',
+        'storage/logs/'      => '775',
+    ],
 ];

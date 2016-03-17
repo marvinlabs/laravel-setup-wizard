@@ -1,6 +1,17 @@
 <?php
 
 return [
+    'requirements' => [
+        'slug'        => 'requirements',
+        'title'       => 'Requirements',
+        'breadcrumb'  => '<i class="fa fa-server"></i>',
+        'description' => 'Check the server configuration',
+        'view'        => [
+            'php_version'   => 'PHP version is at least :ver',
+            'php_extension' => 'PHP extension enabled: :name',
+        ],
+    ],
+
     'env' => [
         'slug'        => 'env',
         'title'       => 'Env File',

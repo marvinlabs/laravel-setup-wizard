@@ -41,6 +41,10 @@ abstract class BaseStep implements WizardStep
 
     public function getMessageBag()
     {
+        if ($this->errors==null) {
+            $this->errors = new MessageBag();
+        }
+
         return $this->errors;
     }
 

@@ -11,7 +11,7 @@ class DatabaseStep extends BaseStep
         parent::__construct($id);
     }
 
-    function apply($formData)
+    public function apply($formData)
     {
         try {
             \Artisan::call('migrate');
@@ -28,7 +28,7 @@ class DatabaseStep extends BaseStep
         return true;
     }
 
-    function undo()
+    public function undo()
     {
         try {
             \Artisan::call('migrate:rollback');
