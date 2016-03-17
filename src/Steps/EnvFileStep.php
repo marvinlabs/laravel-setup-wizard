@@ -18,7 +18,6 @@ class EnvFileStep extends BaseStep
     public function getFormData()
     {
         $sampleContent = $this->readSampleEnvFile();
-
         return [
             'sampleContent' => $sampleContent,
         ];

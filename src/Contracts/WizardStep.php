@@ -27,21 +27,6 @@ interface WizardStep extends MessageProvider
     function getSlug();
 
     /**
-     * @return string A title to show to the user (used for instance as the page title)
-     */
-    function getTitle();
-
-    /***
-     * @return string A short title to show to the user (used for instance in the breadcrumb)
-     */
-    function getShortTitle();
-
-    /**
-     * @return string The view identifier containing the actual step form fields
-     */
-    function getFormPartial();
-
-    /**
      * @return array The initial form data to be used to populate the step fields
      */
     function getFormData();

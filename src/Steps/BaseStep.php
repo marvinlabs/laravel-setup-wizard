@@ -34,24 +34,9 @@ abstract class BaseStep implements WizardStep
         return [];
     }
 
-    public function getFormPartial()
-    {
-        return 'setup_wizard::partials.steps.' . $this->getId();
-    }
-
     public function getSlug()
     {
         return trans('setup_wizard::steps.' . $this->getId() . '.slug');
-    }
-
-    public function getTitle()
-    {
-        return trans('setup_wizard::steps.' . $this->getId() . '.title');
-    }
-
-    public function getShortTitle()
-    {
-        return trans('setup_wizard::steps.' . $this->getId() . '.title_short');
     }
 
     public function getMessageBag()

@@ -5,31 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ trans('setup_wizard::views.default_title') }} &raquo; @yield('step.title', SetupWizard::currentStep()->getTitle())</title>
+    <title>{{ trans('setup_wizard::views.default_title') }} &raquo; @yield('page.title')</title>
 
     <!-- Styles (using Bootstrap as default) -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
-<div class="sw-wizard container">
+<div class="container">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-8 col-sm-push-2">
             {!! Form::open([
-                'route' => ['setup_wizard.submit', \SetupWizard::currentStep()->getSlug()]  ,
+                'route' => ['setup_wizard.submit', $currentStep->getSlug()],
                 'files' => true,
             ]) !!}
 
-            @section('wizard.breadcrumb')
-                @include('setup_wizard::partials.breadcrumb')
-            @show
+            <div class="sw-wizard">
+                <h1 class="sw-step-header">
+                    @yield('wizard.title')
+                </h1>
 
-            @section('wizard.form')
-                @include('setup_wizard::partials.form')
-            @show
+                <div class="sw-breadcrumb">
+                    @yield('wizard.breadcrumb')
+                </div>
 
-            @section('wizard.navigation')
-                @include('setup_wizard::partials.navigation')
-            @show
+                <div class="sw-step-form">
+                    @yield('wizard.form')
+                </div>
+
+                <div class="sw-navigation">
+                    @yield('wizard.navigation')
+                </div>
+            </div>
 
             {!! Form::close() !!}
         </div>
