@@ -29,6 +29,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Triggers
+    |--------------------------------------------------------------------------
+    |
+    | Triggers are used to determine if the wizard has to be ran. Each of the
+    | triggers is a class which implements the
+    | MarvinLabs\SetupWizard\Contracts\WizardTrigger interface
+    */
+
+    'triggers' => [
+        \MarvinLabs\SetupWizard\Triggers\EnvFileTrigger::class,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Steps
     |--------------------------------------------------------------------------
     |
@@ -44,20 +58,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Triggers
-    |--------------------------------------------------------------------------
-    |
-    | Triggers are used to determine if the wizard has to be ran. Each of the
-    | triggers is a class which implements the
-    | MarvinLabs\SetupWizard\Contracts\WizardTrigger interface
-    */
-
-    'triggers' => [
-        \MarvinLabs\SetupWizard\Triggers\EnvFileTrigger::class,
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Theming
     |--------------------------------------------------------------------------
     |
@@ -66,4 +66,37 @@ return [
     */
 
     'theme' => 'material',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Server Requirements
+    |--------------------------------------------------------------------------
+    |
+    | This is the default Laravel server requirements, you can add as many
+    | as your application require, we check if the extension is enabled
+    | by looping through the array and run "extension_loaded" on it.
+    |
+    */
+    'requirements' => [
+        'openssl',
+        'pdo',
+        'mbstring',
+        'tokenizer'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Folders Permissions
+    |--------------------------------------------------------------------------
+    |
+    | This is the default Laravel folders permissions, if your application
+    | requires more permissions just add them to the array list bellow.
+    |
+    */
+    'permissions' => [
+        'storage/app/'           => '775',
+        'storage/framework/'     => '775',
+        'storage/logs/'          => '775',
+        'bootstrap/cache/'       => '775'
+    ]
 ];

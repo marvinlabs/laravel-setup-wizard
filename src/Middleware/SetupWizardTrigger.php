@@ -3,7 +3,7 @@
 namespace MarvinLabs\SetupWizard\Middleware;
 
 use Closure;
-use MarvinLabs\SetupWizard\Contracts\WizardTrigger;
+use MarvinLabs\SetupWizard\Triggers\TriggerHelper;
 
 /**
  * Class SetupWizardTrigger
@@ -25,13 +25,7 @@ class SetupWizardTrigger
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        // Get triggers from configuration and redirect to wizard if any of them fires
-        $triggerClasses = \Config::get('setup_wizard.triggers');
-        foreach ($triggerClasses as $tc) {
-            /** @var WizardTrigger $trigger */
-            $trigger = new $tc();
-            if ($trigger->shouldLaunchWizard()) return $this->redirectToWizard();
-        }
+        if (TriggerHelper::shouldWizardBeTriggered()) return $this->redirectToWizard();
 
         return $next($request);
     }
@@ -39,7 +33,8 @@ class SetupWizardTrigger
     /**
      * Redirects to the wizard's first step
      */
-    protected function redirectToWizard() {
+    protected function redirectToWizard()
+    {
         return redirect()->route('setup_wizard.start');
     }
 }
