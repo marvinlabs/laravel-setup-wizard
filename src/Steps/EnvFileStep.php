@@ -4,12 +4,6 @@ namespace MarvinLabs\SetupWizard\Steps;
 
 class EnvFileStep extends BaseStep
 {
-
-    /**
-     * BaseStep constructor.
-     *
-     * @param string $id The unique identifier for the step
-     */
     public function __construct($id)
     {
         parent::__construct($id);

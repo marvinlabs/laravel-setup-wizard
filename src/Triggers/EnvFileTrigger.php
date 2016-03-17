@@ -21,7 +21,7 @@ class EnvFileTrigger implements WizardTrigger
      */
     function shouldLaunchWizard()
     {
-        $envFilePath = app_path('.env');
+        $envFilePath = base_path('.env');
 
         return !file_exists($envFilePath);
     }

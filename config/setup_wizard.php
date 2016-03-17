@@ -39,6 +39,7 @@ return [
     'steps' => [
         'env'      => \MarvinLabs\SetupWizard\Steps\EnvFileStep::class,
         'database' => \MarvinLabs\SetupWizard\Steps\DatabaseStep::class,
+        'final'    => \MarvinLabs\SetupWizard\Steps\FinalStep::class,
     ],
 
     /*

@@ -23,7 +23,7 @@
 @endsection
 
 @section('wizard.description')
-    {!! trans('setup_wizard::steps.' . $currentStep->getId() . '.description') !!}
+    <h2>{!! trans('setup_wizard::steps.' . $currentStep->getId() . '.description') !!}</h2>
 @endsection
 
 @section('wizard.form')
