@@ -29,6 +29,18 @@ Add the following line to your `config/app.php` file:
 Add the following line to your `app/Http/Kernel.php` file:
 
 ```php
+protected $middlewareGroups = [
+    // ...
+    // Other Middleware
+    // ...
+
+    'setup_wizard' => [
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        'setup_wizard.initializer',
+    ]
+];
+
 protected $routeMiddleware = [
     // ...
     // Other Middleware

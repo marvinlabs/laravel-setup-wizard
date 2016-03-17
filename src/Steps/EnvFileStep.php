@@ -37,7 +37,7 @@ class EnvFileStep extends BaseStep
         // Validate form data
         $v = $this->getValidator($formData);
         if ($v->fails()) {
-            $this->errors->merge($v->errors());
+            $this->mergeErrors($v->errors());
 
             return false;
         }
@@ -45,7 +45,7 @@ class EnvFileStep extends BaseStep
         // Proceed with file creation
         $envFilePath = base_path('.env');
         if (false === file_put_contents($envFilePath, $formData['file_content'])) {
-            $this->errors->add('env.errors.cannot_write_file', trans('setup_wizard::steps.env.errors.cannot_write_file'));
+            $this->addError('env.errors.cannot_write_file', trans('setup_wizard::steps.env.errors.cannot_write_file'));
 
             return false;
         }

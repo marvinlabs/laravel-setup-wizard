@@ -4,12 +4,26 @@
     {{ trans('setup_wizard::steps.' . $currentStep->getId() . '.title') }}
 @endsection
 
-@section('wizard.title')
-    {!! trans('setup_wizard::steps.' . $currentStep->getId() . '.title') !!}
+@section('wizard.header')
+    <h1 class="sw-step-title">{!! trans('setup_wizard::steps.' . $currentStep->getId() . '.title') !!}</h1>
 @endsection
 
 @section('wizard.breadcrumb')
     @include('setup_wizard::partials.breadcrumb')
+@endsection
+
+@section('wizard.errors')
+    @if ($errors->has())
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+@endsection
+
+@section('wizard.description')
+    {!! trans('setup_wizard::steps.' . $currentStep->getId() . '.description') !!}
 @endsection
 
 @section('wizard.form')

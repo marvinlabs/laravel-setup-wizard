@@ -13,11 +13,30 @@ body {
 }
 
 .sw-step-header {
-    padding: 50px 20px;
     background: #536DFE;
+}
+
+.sw-step-header .sw-step-title {
+    padding: 50px 20px;
     color: #FFF;
     text-align: center;
     text-transform: uppercase;
+}
+
+.sw-step-header hr {
+    margin: 0 20px;
+    border-top: 1px solid #9FA8DA;
+}
+
+.sw-step-header .sw-step-description {
+    padding: 30px 40px 60px;
+    color: #C5CAE9;
+    text-align: center;
+}
+
+.sw-description {
+    margin: 10px 20px 0;
+    padding-bottom: 20px;
 }
 
 .sw-breadcrumb ol {
@@ -85,6 +104,10 @@ body {
     min-height: 180px;
 }
 
+.sw-errors {
+    padding: 0 20px;
+}
+
 .sw-navigation {
     padding: 20px;
     text-align: right;
@@ -97,4 +120,15 @@ body {
 
 .btn-back {
     margin-right: 10px;
+}
+
+.btn-primary {
+    background: #E91E63;
+    border-color: #C2185B;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+    background: #C2185B;
+    border-color: #C2185B;
 }

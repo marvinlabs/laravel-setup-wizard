@@ -22,12 +22,20 @@
             ]) !!}
 
             <div class="sw-wizard">
-                <h1 class="sw-step-header">
-                    @yield('wizard.title')
-                </h1>
+                <div class="sw-step-header">
+                    @yield('wizard.header')
+                </div>
 
                 <div class="sw-breadcrumb">
                     @yield('wizard.breadcrumb')
+                </div>
+
+                <div class="sw-errors">
+                    @yield('wizard.errors')
+                </div>
+
+                <div class="sw-description">
+                    @yield('wizard.description')
                 </div>
 
                 <div class="sw-step-form">

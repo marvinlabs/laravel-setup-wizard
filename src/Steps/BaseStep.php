@@ -21,7 +21,7 @@ abstract class BaseStep implements WizardStep
     public function __construct($id)
     {
         $this->id = $id;
-        $this->errors = new MessageBag();
+        $this->errors = null;
     }
 
     public function getId()
@@ -42,5 +42,23 @@ abstract class BaseStep implements WizardStep
     public function getMessageBag()
     {
         return $this->errors;
+    }
+
+    protected function mergeErrors($messages)
+    {
+        if ($this->errors==null) {
+            $this->errors = new MessageBag();
+        }
+
+        $this->errors->merge($messages);
+    }
+
+    protected function addError($key, $message)
+    {
+        if ($this->errors==null) {
+            $this->errors = new MessageBag();
+        }
+
+        $this->errors->add($key, $message);
     }
 }

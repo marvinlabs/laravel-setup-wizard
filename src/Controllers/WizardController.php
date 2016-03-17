@@ -23,7 +23,7 @@ class WizardController extends Controller
         $this->wizard = $wizard;
 
         // Our methods all use the middleware to setup the wizard (find current step, etc.)
-        $this->middleware('setup_wizard.initializer');
+        $this->middleware(['setup_wizard']);
     }
 
     /**
@@ -68,7 +68,7 @@ class WizardController extends Controller
         // Apply the current step. If success, we can redirect to next one
         $currentStep = \SetupWizard::currentStep();
         if (!$currentStep->apply($request->all())) {
-            return redirect()->back()->withErrors($currentStep);
+            return view()->make('setup_wizard::steps.default', ['errors' => $currentStep->getMessageBag()]);
         }
 
         // If we have a next step, go for it. Else we redirect to somewhere else
@@ -93,7 +93,7 @@ class WizardController extends Controller
             // Undo the previous step. If success, we can redirect to its form
             $previousStep = \SetupWizard::previousStep();
             if (!$previousStep->undo()) {
-                return redirect()->back()->withErrors($previousStep);
+                return view()->make('setup_wizard::steps.default', ['errors' => $previousStep->getMessageBag()]);
             }
 
             return redirect()->route('setup_wizard.show', ['slug' => $previousStep->getSlug()]);
