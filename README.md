@@ -60,19 +60,24 @@ This way, the setup wizard will only be triggered when trying to access the admi
 
 ### Publish assets 
 
-This step is optional. You can publish files from the package in order to be able to override them. Use the artisan 
-command like you would for any other package:
+To get the CSS right, you need to at least publish the package assets to your public directory:
+
+```
+php artisan vendor:publish --provider="MarvinLabs\SetupWizard\ServiceProvider" --tag="assets"
+```
+
+Optionally, you can publish more files from the package in order to be able to override them. Use the artisan 
+command like you would for any other package (will publish files from all vendor packages):
 
 ```
 php artisan vendor:publish
 ```
 
-You can also publish only some of the files to override just what you need. The library has tagged them into 4 different
-categories.
+Or you can publish only some of the package files to override just what you need. The library has tagged them into 4 
+different categories (assets category has been published before):
 
 ```
 php artisan vendor:publish --provider="MarvinLabs\SetupWizard\ServiceProvider" --tag="config"
-php artisan vendor:publish --provider="MarvinLabs\SetupWizard\ServiceProvider" --tag="assets"
 php artisan vendor:publish --provider="MarvinLabs\SetupWizard\ServiceProvider" --tag="views"
 php artisan vendor:publish --provider="MarvinLabs\SetupWizard\ServiceProvider" --tag="translations"
 ```
@@ -82,3 +87,6 @@ above.
 
 ## Configuration
 
+## Credits
+
+- Background image used in default CSS: <a href="http://www.flickr.com/photos/57527070@N06/25322975232">Heavenly Light Ray Silhouette</a>

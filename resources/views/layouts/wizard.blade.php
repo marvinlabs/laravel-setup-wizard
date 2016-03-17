@@ -10,11 +10,12 @@
     <!-- Styles (using Bootstrap as default) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/setup_wizard/css/' . config('setup_wizard.theme') . '.css') }}">
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-sm-8 col-sm-push-2">
+        <div class="col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
             {!! Form::open([
                 'route' => ['setup_wizard.submit', $currentStep->getSlug()],
                 'files' => true,

@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | You can configure the routing for the wizard here (or even turn it off
-    altogether)
+    | altogether)
     */
 
     'routing' => [
@@ -54,4 +54,15 @@ return [
     'triggers' => [
         \MarvinLabs\SetupWizard\Triggers\EnvFileTrigger::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Theming
+    |--------------------------------------------------------------------------
+    |
+    | You can indicate the name of the CSS file to use to customize the wizard
+    | appearance
+    */
+
+    'theme' => 'material',
 ];

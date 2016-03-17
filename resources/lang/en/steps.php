@@ -3,7 +3,7 @@
 return [
     'env' => [
         'slug'        => 'env',
-        'title'       => 'Environment variables',
+        'title'       => 'Env File',
         'breadcrumb'  => '<i class="fa fa-file-o"></i>',
         'errors'      => [
             'cannot_write_file'  => 'Failed to write the .env file. Please check that you have the permission',
@@ -13,7 +13,7 @@ return [
 
     'database' => [
         'slug'        => 'database',
-        'title'       => 'Initialize database',
+        'title'       => 'Database',
         'breadcrumb'  => '<i class="fa fa-database"></i>',
     ],
 ];
