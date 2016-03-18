@@ -12,6 +12,17 @@ return [
         ],
     ],
 
+    'folders' => [
+        'slug'        => 'folders',
+        'title'       => 'Folder permissions',
+        'breadcrumb'  => '<i class="fa fa-folder"></i>',
+        'description' => 'Check application folder permissions',
+        'view'        => [
+            'granted' => 'Folder <code class="text-success">:path</code> has permission <code class="text-success">:perm</code>',
+            'missing' => 'Folder <code class="text-danger">:path</code> has permission <code class="text-danger">:perm_actual</code> instead of <code class="text-danger">:perm</code>',
+        ],
+    ],
+
     'env' => [
         'slug'        => 'env',
         'title'       => 'Env File',

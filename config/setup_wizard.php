@@ -52,6 +52,7 @@ return [
 
     'steps' => [
         'requirements' => \MarvinLabs\SetupWizard\Steps\RequirementsStep::class,
+        'folders'      => \MarvinLabs\SetupWizard\Steps\FoldersStep::class,
         'env'          => \MarvinLabs\SetupWizard\Steps\EnvFileStep::class,
         'database'     => \MarvinLabs\SetupWizard\Steps\DatabaseStep::class,
         'final'        => \MarvinLabs\SetupWizard\Steps\FinalStep::class,
