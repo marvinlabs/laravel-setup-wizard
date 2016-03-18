@@ -1,6 +1,12 @@
 {
   "name": "marvinlabs/laravel-setup-wizard",
-  "description": "A setup wizard for your Laravel application",
+  "type": "library",
+  "description": "A web setup wizard for your Laravel application",
+  "keywords": [
+    "laravel",
+    "installer",
+    "setup"
+  ],
   "homepage": "https://github.com/marvinlabs/laravel-setup-wizard",
   "support": {
     "issues": "https://github.com/marvinlabs/laravel-setup-wizard/issues",
@@ -16,7 +22,8 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=5.5.9",
-    "illuminate/support": "5.2.*"
+    "illuminate/support": "5.2.*",
+    "laravelcollective/html": "5.2.*"
   },
   "requireDev": {
   },
