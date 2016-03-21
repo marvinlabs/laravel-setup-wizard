@@ -30,12 +30,12 @@
                     @yield('wizard.breadcrumb')
                 </div>
 
-                <div class="sw-errors">
-                    @yield('wizard.errors')
-                </div>
-
                 <div class="sw-description">
                     @yield('wizard.description')
+                </div>
+
+                <div class="sw-errors">
+                    @yield('wizard.errors')
                 </div>
 
                 <div class="sw-step-form">
