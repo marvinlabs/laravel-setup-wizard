@@ -161,7 +161,7 @@ Open `config/setup_wizard.php` and add your step class to the list of steps for 
         'env'          => \MarvinLabs\SetupWizard\Steps\EnvFileStep::class,
         'database'     => \MarvinLabs\SetupWizard\Steps\DatabaseStep::class,
         
-        'my-step-id'   => \App\Setup\MyStep::class',
+        'my_step'      => \App\Setup\MyStep::class',
         
         'final'        => \MarvinLabs\SetupWizard\Steps\FinalStep::class,
     ],

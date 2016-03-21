@@ -14,9 +14,13 @@ class DatabaseStep extends BaseStep
     public function apply($formData)
     {
         try {
-            \Artisan::call('migrate');
+            if ($this->isChecked($formData, 'refresh_db')) {
+                \Artisan::call('migrate:refresh');
+            } else {
+                \Artisan::call('migrate');
+            }
 
-            if (isset($formData['enable_seeding']) && $formData['enable_seeding'] == 1) {
+            if ($this->isChecked($formData, 'enable_seeding')) {
                 \Artisan::call('db:seed');
             }
         } catch (Exception $e) {
@@ -39,5 +43,9 @@ class DatabaseStep extends BaseStep
         }
 
         return true;
+    }
+
+    protected function isChecked($formData, $optionName) {
+        return isset($formData[$optionName]) && $formData[$optionName] == 1;
     }
 }

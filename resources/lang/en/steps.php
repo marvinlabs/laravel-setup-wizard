@@ -43,6 +43,7 @@ return [
         'breadcrumb'  => '<i class="fa fa-database"></i>',
         'description' => 'Setup tables and initial data',
         'view'        => [
+            'refresh_db'     => 'Replace the database schema with <code>artisan migrate:refresh</code> <em>(else, simply update it with <code>artisan migrate</code>)</em>',
             'enable_seeding' => 'Seed the database using the <code>artisan db:seed</code> command',
         ],
     ],
