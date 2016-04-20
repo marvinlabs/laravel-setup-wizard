@@ -1,35 +1,27 @@
 {
   "name": "marvinlabs/laravel-setup-wizard",
-  "type": "library",
   "description": "A web setup wizard for your Laravel application",
+  "license": "MIT",
   "keywords": [
     "laravel",
     "installer",
     "setup"
   ],
-  "homepage": "https://github.com/marvinlabs/laravel-setup-wizard",
-  "support": {
-    "issues": "https://github.com/marvinlabs/laravel-setup-wizard/issues",
-    "source": "https://github.com/marvinlabs/laravel-setup-wizard"
-  },
-  "license": "MIT",
   "authors": [
     {
       "name": "Vincent Mimoun-Prat",
       "email": "contact@vincentprat.info"
     }
   ],
-  "minimum-stability": "stable",
   "require": {
     "php": ">=5.5.9",
     "illuminate/support": "5.2.*",
     "laravelcollective/html": "5.2.*"
   },
-  "requireDev": {
-  },
   "autoload": {
     "psr-4": {
       "MarvinLabs\\SetupWizard\\": "src/"
     }
-  }
+  },
+  "minimum-stability": "stable"
 }
