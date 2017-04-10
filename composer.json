@@ -29,7 +29,7 @@
   },
   "autoload": {
     "psr-4": {
-      "MarvinLabs\\SetupWizard\\": "src/"
+      "oldu67\\SetupWizard\\": "src/"
     }
   }
 }
